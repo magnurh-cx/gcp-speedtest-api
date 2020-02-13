@@ -6,6 +6,7 @@ plugins {
 	war
 	kotlin("jvm") version "1.2.71"
 	kotlin("plugin.spring") version "1.2.71"
+	id("com.google.cloud.tools.appengine") version "2.0.1"
 }
 
 group = "com.speedtest"
@@ -19,6 +20,9 @@ repositories {
 extra["springCloudVersion"] = "Greenwich.SR5"
 
 dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-web") {
+		exclude("org.springframework.boot", "spring-boot-starter-tomcat")
+	}
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -38,5 +42,12 @@ tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
 		jvmTarget = "1.8"
+	}
+}
+
+appengine {
+	deploy {
+		version = "GCLOUD_CONFIG"
+		projectId = "mrh-cloud-101-workshop"
 	}
 }
