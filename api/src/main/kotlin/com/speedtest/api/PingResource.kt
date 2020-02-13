@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/hello")
-class HelloResource {
+@RequestMapping("/")
+class PingResource {
 
-    @GetMapping(path = ["{name}"])
-    fun getHello(@PathVariable("name") name: String): String = "Hello $name"
+    @GetMapping(path = ["/ping"])
+    fun getPing(): String {
+        return "pong";
+    }
 }
